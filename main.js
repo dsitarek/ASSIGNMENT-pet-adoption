@@ -243,6 +243,7 @@ const pets = [
 ];
 
 const loadPage = (whichPets) => {
+  document.getElementById("pet-kennel").innerHTML = "";
   for (pet of whichPets) {
     document.getElementById("pet-kennel").innerHTML += `      <div class="card">
     <div class="card-title">
