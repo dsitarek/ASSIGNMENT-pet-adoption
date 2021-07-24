@@ -242,10 +242,20 @@ const pets = [
   },
 ];
 
+const idPets = (arr) => {
+  for (i = 0; i < arr.length; i++) {
+    arr[i].id = i;
+  }
+};
+
+idPets(pets);
+
 const loadPage = (whichPets) => {
   document.getElementById("pet-kennel").innerHTML = "";
   for (pet of whichPets) {
-    document.getElementById("pet-kennel").innerHTML += `      <div class="card">
+    document.getElementById(
+      "pet-kennel"
+    ).innerHTML += `      <div class="card" id="${pet.id}">
     <div class="card-title">
       <h5>${pet.name}</h5>
     </div>
@@ -260,24 +270,34 @@ const loadPage = (whichPets) => {
         ${pet.specialSkill}
       </p>
     </div>
+    <button type="button" class="Btn delete" onclick="deleteFunc(${pet.id})">X</button>
     <footer class="pet-type-${pet.type}">${pet.type}</footer>
   </div>`;
   }
 };
+
+const deleteFunc = (index) => {
+  document.getElementById(index).outerHTML = "";
+  const petIndex = pets.findIndex((pet) => pet.id === index);
+  pets.splice(petIndex, 1);
+};
+
 loadPage(pets);
 
 const catFilter = () => {
-  let catsOnly = pets.filter((pet) => pet.type === "cat");
+  const catsOnly = pets.filter((pet) => pet.type === "cat");
   document.getElementById("pet-kennel").innerHTML = "";
   loadPage(catsOnly);
 };
+
 const dogFilter = () => {
-  let dogsOnly = pets.filter((pet) => pet.type === "dog");
+  const dogsOnly = pets.filter((pet) => pet.type === "dog");
   document.getElementById("pet-kennel").innerHTML = "";
   loadPage(dogsOnly);
 };
+
 const dinoFilter = () => {
-  let dinosOnly = pets.filter((pet) => pet.type === "dino");
+  const dinosOnly = pets.filter((pet) => pet.type === "dino");
   document.getElementById("pet-kennel").innerHTML = "";
   loadPage(dinosOnly);
 };
